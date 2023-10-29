@@ -6,6 +6,6 @@
 
 # ссылка
 
-IP ____________
+IP 51.250.89.176
 
-Backend __________________________
+Backend https://api.diplom.eysaveleva.nomoredomainsrocks.ru
