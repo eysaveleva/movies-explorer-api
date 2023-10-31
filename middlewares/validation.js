@@ -1,5 +1,5 @@
 const { celebrate, Joi } = require('celebrate');
-const { REGULAR_URL, REGULAR_ID } = require('../config/config');
+const { REGULAR_URL, REGULAR_ID } = require('../config/constans');
 
 module.exports.validateLogin = celebrate({
   body: Joi.object().keys({
@@ -11,8 +11,6 @@ module.exports.validateLogin = celebrate({
 module.exports.validateAddUser = celebrate({
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30),
-    about: Joi.string().min(2).max(30),
-    avatar: Joi.string().regex(REGULAR_URL),
     email: Joi.string().required().email(),
     password: Joi.string().required(),
   }),
@@ -21,7 +19,7 @@ module.exports.validateAddUser = celebrate({
 module.exports.validateUpdateProfileInfo = celebrate({
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30).required(),
-    about: Joi.string().min(2).max(30).required(),
+    email: Joi.string().required().email(),
   }),
 });
 

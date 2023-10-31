@@ -1,4 +1,4 @@
-const { NOT_OWNER_CODE } = require('../config/config');
+const { NOT_OWNER_CODE } = require('../config/constans');
 
 class ForbiddenError extends Error {
   constructor(message) {

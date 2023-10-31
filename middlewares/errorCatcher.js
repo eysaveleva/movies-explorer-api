@@ -1,4 +1,4 @@
-const { ERROR_DEFAULT_CODE } = require('../config/config');
+const { ERROR_DEFAULT_CODE } = require('../config/constans');
 
 module.exports.errorCatcher = ((err, req, res, next) => {
   const { statusCode = ERROR_DEFAULT_CODE, message } = err;

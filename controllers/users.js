@@ -9,7 +9,7 @@ const {
   KEY,
   NODE_ENV,
   JWT_SECRET,
-} = require('../config/config');
+} = require('../config/constans');
 
 const ConflictError = require('../errors/ConflictError');
 const BadRequestError = require('../errors/BadRequestError');
@@ -53,26 +53,21 @@ module.exports.addUser = (req, res, next) => {
     });
 };
 
-const updateProfile = (req, res, next, newData) => {
-  User.findByIdAndUpdate(
-    req.user._id,
-    newData,
-    {
-      new: true,
-      runValidators: true,
-    },
-  ).orFail(() => {
-    throw new NotFoundError('Пользователь с указанным _id не найден');
-  })
+module.exports.updateProfileInfo = (req, res, next) => {
+  const { name, email } = req.body;
+  User.findByIdAndUpdate(req.user._id, { name, email }, { new: 'true', runValidators: true })
+    .orFail(() => {
+      throw new NotFoundError('Пользователь с указанным _id не найден');
+    })
     .then((user) => {
       res.status(RIGHT_CODE).send(user);
     })
-    .catch(next);
-};
-
-module.exports.updateProfileInfo = (req, res, next) => {
-  const newData = req.body;
-  return updateProfile(req, res, next, newData);
+    .catch((err) => {
+      if (err.code === 11000) {
+        return next(new ConflictError(`Пользователь с email: ${email} уже зарегистрирован`));
+      }
+      return next(err);
+    });
 };
 
 module.exports.login = (req, res, next) => {

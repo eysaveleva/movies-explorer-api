@@ -2,7 +2,7 @@ const Movie = require('../models/movie');
 const {
   RIGHT_CODE,
   CREATED_CODE,
-} = require('../config/config');
+} = require('../config/constans');
 
 const BadRequestError = require('../errors/BadRequestError');
 const NotFoundError = require('../errors/NotFoundError');
